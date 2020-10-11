@@ -1,0 +1,10 @@
+.idea/
+.DS_Store
+node_modules/
+*/.svn/*
+*/*/.svn/*
+*/*/*/.svn/*
+*/*/*/*/.svn/*
+*/*/*/*/*/.svn/*
+*/*/*/*/*/*/.svn/*
+package-lock.json
