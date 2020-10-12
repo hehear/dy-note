@@ -77,6 +77,54 @@ app.use('/',index);
 let noteRest=require('./app/rest/noteRest.js');
 app.use('/rest/note',noteRest);
 
+let multer  = require('multer');
+//指定文件存放路径
+let upload = multer({dest: 'public/upload'});
+
+app.post('/mdImgUpload', upload.any(),function(req,res){
+    console.log('你上传了图片信息');
+    console.log(req.files[0]);  // 上传的文件信息
+    let file=req.files[0];
+    //获取文件原名
+    let originalname=file.originalname;
+    //取原文件后缀
+    let suffix=originalname.substring(originalname.lastIndexOf('.'));
+    //获取上传时生成的随机名(无后缀信息)
+    let hashName=file.filename;
+    //最终文件全名
+    let fileName=hashName+suffix;
+    //上传文件最终存放目录 TODO tl 改为配置
+    let basePath=file.destination;
+    //根据当前日期生成目录
+    let yyyymmdd=moment().format('YYYYMMDD');
+    if(!fs.existsSync(basePath+yyyymmdd)){
+        console.log('生成存放目录');
+        fs.mkdirSync(basePath+yyyymmdd);
+    }
+
+    //临时文件path
+    let tempFilePath=file.path;
+
+    //最终文件（含路径）
+    let des_file = basePath+yyyymmdd+'/' + fileName;
+    fs.readFile( tempFilePath, function (err, data) {
+        fs.writeFile(des_file, data, function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                //ck需要返回的格式
+                res.jsonp({'success':1, 'url':des_file.replace('public','')});
+            }
+
+            //移除临时图片
+            fs.unlink(tempFilePath,function(){
+                console.log('删除临时文件:'+tempFilePath);
+            });
+        });
+    });
+
+});
+
 
 
 //实在匹配不上(要放在所有匹配的最底部)

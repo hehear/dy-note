@@ -1,7 +1,6 @@
 const express = require('express');
 const logger = require('../../config/log4js');
 const router = express.Router();
-const articleService=require('../service/articleService');
 const resMsg = require('../model/resMsg');
 const fs = require('fs');
 const path = require('path');

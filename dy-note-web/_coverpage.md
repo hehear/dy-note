@@ -4,7 +4,8 @@
 <h1 align="center">dy-note</h1>
 
 [GitHub](https://github.com/hehear)
-[Get Started](#dy-note)
+[Write notes](http://note.hehear.com/)
+[Read notes](#dy-note)
 
 
 
