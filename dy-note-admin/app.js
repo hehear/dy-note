@@ -22,6 +22,8 @@ app.listen(config.port,function(){
 
 const bodyParser = require('body-parser');
 const path = require('path');
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // 添加 body-parser 中间件就可以了,用來接收post提交的數據
 app.use(bodyParser.urlencoded({extended: false}));

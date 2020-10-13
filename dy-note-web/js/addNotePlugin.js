@@ -6,21 +6,21 @@
     win.AddNotePlugin = {}
 
     function create(docBase, docEditBase, title) {
-        title = title || 'Add Note'
+        title = title || 'Edit Note'
         docEditBase = docEditBase || docBase.replace(/\/blob\//, '/edit/')
 
         function editDoc(event, vm) {
             var docName = vm.route.file
 
-            // if (docName) {
-            //     var editLink = docEditBase + docName
-            //     window.open(editLink)
-            //     event.preventDefault()
-            //     return false
-            // } else {
-            //     return true
-            // }
-            alert(1);
+            if (docName) {
+                var editLink = docEditBase ;
+                window.open(editLink)
+                event.preventDefault()
+                return false
+            } else {
+                return true
+            }
+            //alert(1);
         }
 
         win.AddNotePlugin.editDoc = editDoc
