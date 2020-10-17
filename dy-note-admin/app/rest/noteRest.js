@@ -5,7 +5,8 @@ const resMsg = require('../model/resMsg');
 const fs = require('fs');
 const path = require('path');
 
-const docPath = "/Users/runningcoder/Desktop/node/dy-note-web/docs";
+const docPath = "/Users/runningcoder/git/dy-note/dy-note-web/docs";
+const sideBar = "/Users/runningcoder/git/dy-note/dy-note-web/_sidebar.md";
 
 
 function readFileList(dir, resultMap=new Map(),filesList = []) {
@@ -17,8 +18,10 @@ function readFileList(dir, resultMap=new Map(),filesList = []) {
         const stat = fs.statSync(fullPath);
         if (stat.isDirectory()) {
             //console.log('dir:'+fullPath);
-            resultMap.set(item,filesList)
-            readFileList(path.join(dir, item), resultMap,filesList);  //递归读取文件
+            if(item!="note-images"){
+                resultMap.set(item,filesList)
+                readFileList(path.join(dir, item), resultMap,filesList);  //递归读取文件
+            }
         } else {
             let file = {}
             file.name = item.substring(0,item.lastIndexOf('.'));
@@ -79,7 +82,7 @@ function saveToDocsifySideBar(){
         }
     });
 
-    fs.writeFile('/Users/runningcoder/Desktop/node/dy-note-web/_sidebar.md',mdContent,function(error) {
+    fs.writeFile(sideBar,mdContent,function(error) {
         if (error) {
             console.log('写入失败')
         } else {
